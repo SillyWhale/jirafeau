@@ -1,6 +1,7 @@
 #!/bin/sh
 chown -R nobody:nogroup ${JF_ROOT_DIR}
 chown -R nobody:nogroup ${JF_DATA_DIR}
+chmod -R g+w ${JF_DATA_DIR}
 cd ${JF_ROOT_DIR}
 supervisord -c /usr/local/etc/supervisord.conf &
 sleep 5
