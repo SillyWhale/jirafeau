@@ -2,10 +2,10 @@ version: '3.6'
 
 services:
   app:
-    image: docker.fricouv.eu/vfricou/nextcloud:latest
+    image: docker.fricouv.eu/vfricou/jirafeau:latest
     ports:
-      - :80
-    volumes:
-      - /srv/docker-data/nextcloud/data/apps:/nextcloud/apps
-      - /srv/docker-data/nextcloud/data/config.php:/nextcloud/config/config.php
-      - /srv/docker-data/nextcloud/data/nextcloud-data:/nextcloud-data
+      - 80:80
+  volumes:
+      - /srv/docker-data/jirafeau/data/config.local.php:/Jirafeau/lib/config.local.php
+      - /srv/docker-data/jirafeau/data/uploads:/jirafeau-data/
+
