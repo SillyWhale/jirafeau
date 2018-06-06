@@ -1,7 +1,10 @@
 #!/bin/sh
 chown -R nobody:nogroup ${JF_ROOT_DIR}
 chown -R nobody:nogroup ${JF_DATA_DIR}
-chmod -R g+w ${JF_DATA_DIR}
+chmod -R g+w,o+rwx ${JF_DATA_DIR}
+mkdir ${JF_DATA_DIR}/files
+mkdir ${JF_DATA_DIR}/links
+mkdir ${JF_DATA_DIR}/async
 cd ${JF_ROOT_DIR}
 supervisord -c /usr/local/etc/supervisord.conf &
 sleep 5
