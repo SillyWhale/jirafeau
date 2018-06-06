@@ -1,0 +1,49 @@
+image: docker:dind
+
+stages:
+- build
+- release
+- deploy
+
+variables:
+  CONTAINER_REPO: vfricou/jirafeau
+  CONTAINER_BUILD_IMAGE: ${CI_DOCKER_REGISTRY_HOST}/${CONTAINER_REPO}:$CI_COMMIT_REF_NAME
+  CONTAINER_RELEASE_IMAGE: ${CI_DOCKER_REGISTRY_HOST}/${CONTAINER_REPO}:latest
+  CONTAINER_RELEASE_IMAGE_TAG: ${CI_DOCKER_REGISTRY_HOST}/${CONTAINER_REPO}:$CI_COMMIT_TAG
+
+build:docker:
+  stage: build
+  script:
+    - docker build -t ${CONTAINER_BUILD_IMAGE} .
+
+release-image:latest:
+  stage: release
+  script:
+    - docker login -u ${CI_DOCKER_REGISTRY_USER} -p ${CI_DOCKER_REGISTRY_PASS} ${CI_DOCKER_REGISTRY_HOST}
+    - docker tag $CONTAINER_BUILD_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - master
+
+release-image:tags:
+  stage: release
+  script:
+    - docker login -u ${CI_DOCKER_REGISTRY_USER} -p ${CI_DOCKER_REGISTRY_PASS} ${CI_DOCKER_REGISTRY_HOST}
+    - docker tag $CONTAINER_BUILD_IMAGE $CONTAINER_RELEASE_IMAGE_TAG
+    - docker push $CONTAINER_RELEASE_IMAGE_TAG
+  only:
+    - tags
+  
+deploy:swarm:
+  stage: deploy
+  image: debian:latest
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - mkdir -p ~/.ssh
+    - echo "${CI_SWARM_DEPLOY_SSHKEY}" > ~/.ssh/id_rsa
+    - chmod 400 ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh -i ~/.ssh/id_rsa ${CI_SWARM_DEPLOY_USER}@${CI_SWARM_DEPLOY_MANAGER} "docker service update ${SWARM_SVC_NAME} --replicas 2 && docker service update ${SWARM_SVC_NAME} --image ${CONTAINER_RELEASE_IMAGE} --with-registry-auth --force && docker service update ${SWARM_SVC_NAME} --replicas 1"
+  only:
+    - master
