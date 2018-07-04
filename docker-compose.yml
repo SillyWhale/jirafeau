@@ -4,8 +4,8 @@ services:
   app:
     image: docker.fricouv.eu/vfricou/jirafeau:latest
     ports:
-      - 80:80
-  volumes:
+      - 8082:80
+    volumes:
       - /srv/docker-data/jirafeau/data/config.local.php:/Jirafeau/lib/config.local.php
       - /srv/docker-data/jirafeau/data/uploads:/jirafeau-data/
 
