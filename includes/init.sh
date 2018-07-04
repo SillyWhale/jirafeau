@@ -1,4 +1,10 @@
 #!/bin/sh
+SIZE_LIMIT=${SIZE_LIMIT:-'4G'}
+
+sed -i s/client_max_body_size 4G/client_max_body_size ${SIZE_LIMIT}/ /etc/nginx/conf.d/default.conf
+
+
+
 chown -R nobody:nogroup ${JF_ROOT_DIR}
 chown -R nobody:nogroup ${JF_DATA_DIR}
 chmod -R g+w,o+rwx ${JF_DATA_DIR}

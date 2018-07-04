@@ -20,7 +20,7 @@ RUN \
   cd ${JF_ROOT_DIR} && git checkout tags/${JF_VERSION}
 
 
-COPY includes/nginx.conf /etc/nginx/conf.d/nextcloud.conf
+COPY includes/nginx.conf /etc/nginx/conf.d/default.conf
 COPY includes/php7-fpm.conf /etc/php7/php-fpm.d/nextcloud.conf
 COPY includes/supervisord.conf /usr/local/etc/supervisord.conf
 COPY includes/init.sh /init.sh
