@@ -1,7 +1,7 @@
 #!/bin/sh
-SIZE_LIMIT=${SIZE_LIMIT:-'4G'}
+SIZE_LIMIT=${SIZE_LIMIT:-'1G'}
 
-sed -i s/client_max_body_size 4G/client_max_body_size ${SIZE_LIMIT}/ /etc/nginx/conf.d/default.conf
+sed -i s/client_max_body_size 1G/client_max_body_size ${SIZE_LIMIT}/ /etc/nginx/conf.d/default.conf
 
 
 
