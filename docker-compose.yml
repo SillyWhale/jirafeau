@@ -2,12 +2,12 @@ version: '3.6'
 
 services:
   app:
-    image: docker.fricouv.eu/vfricou/jirafeau:latest
+    image: jirafeau:latest
     ports:
       - 8082:80
     environment:
       - SIZE_LIMIT=2G
     volumes:
-      - /srv/docker-data/jirafeau/data/config.local.php:/Jirafeau/lib/config.local.php
-      - /srv/docker-data/jirafeau/data/uploads:/jirafeau-data/
+      - ${PWD}/data/config.local.php:/Jirafeau/lib/config.local.php
+      - ${PWD}/data/uploads:/jirafeau-data/
 
