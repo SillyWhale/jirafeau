@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
   app:
-    image: sillywhale/jirafeau:latest
+    image: docker.fricouv.eu/vfricou/jirafeau:latest
     ports:
       - 80:80
     environment:
