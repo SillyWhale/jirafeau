@@ -2,9 +2,9 @@ version: '3.6'
 
 services:
   app:
-    image: jirafeau:latest
+    image: sillywhale/jirafeau:latest
     ports:
-      - 8082:80
+      - 80:80
     environment:
       - SIZE_LIMIT=2G
     volumes:
