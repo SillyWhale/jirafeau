@@ -5,7 +5,8 @@ services:
     image: sillywhale/jirafeau:latest
     ports:
       - 80:80
+    environment:
+      - PURGE_ENABLED=true
     volumes:
       - ${PWD}/data/config.local.php:/Jirafeau/lib/config.local.php
       - ${PWD}/data/uploads:/jirafeau-data/
-

@@ -54,6 +54,7 @@ docker run -d \
         -p 80:80
         -v ${PWD}/data/uploads:/jirafeau-data
         -v ${PWD}/data/config.local.php:/Jirafeau/lib/config.local.php
+        -e PURGE_ENABLED=true
         sillywhale/jirafeau:latest
 ```
 
