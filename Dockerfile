@@ -1,7 +1,7 @@
-FROM alpine:3.7
-LABEL maintainer="Vincent FRICOU <vincent@fricouv.eu>"
+FROM alpine:3.8
+LABEL maintainer="SillyWhale <contact@sillywhale.wtf"
 
-ENV JF_VERSION=3.4.1 \
+ENV JF_VERSION=3.3.0 \
     JF_URL=https://gitlab.com/mojo42/Jirafeau \
     JF_ROOT_DIR=/Jirafeau \
     JF_DATA_DIR=/jirafeau-data
@@ -11,7 +11,7 @@ COPY includes/ /includes.d
 RUN \
   apk update && apk upgrade && \
   apk add --no-cache nginx supervisor git && \
-  apk add --no-cache php7-fpm php7-session php7-json php7-mcrypt && \
+  apk add --no-cache php7-fpm php7-session php7-json php7-mcrypt php7-xdebug && \
   rm /etc/nginx/conf.d/default.conf && \
   rm /etc/php7/php-fpm.d/www.conf && \
   mkdir /run/nginx/ && \
