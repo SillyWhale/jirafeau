@@ -16,6 +16,7 @@ build:docker:
     - docker build -t ${CONTAINER_BUILD_IMAGE} .
   only:
     - master
+    - tags
 
 release-image:latest:
   stage: release
