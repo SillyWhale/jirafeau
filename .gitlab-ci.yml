@@ -34,17 +34,3 @@ release-image:tags:
     - docker push $CONTAINER_RELEASE_IMAGE_TAG
   only:
     - tags
-  
-deploy:swarm:
-  stage: deploy
-  image: debian:latest
-  script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - mkdir -p ~/.ssh
-    - echo "${CI_SWARM_DEPLOY_SSHKEY}" > ~/.ssh/id_rsa
-    - chmod 400 ~/.ssh/id_rsa
-    - chmod 700 ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - ssh -i ~/.ssh/id_rsa ${CI_SWARM_DEPLOY_USER}@${CI_SWARM_DEPLOY_MANAGER} "docker service update ${SWARM_SVC_NAME} --replicas 2 && docker service update ${SWARM_SVC_NAME} --image ${CONTAINER_RELEASE_IMAGE} --with-registry-auth --force && docker service update ${SWARM_SVC_NAME} --replicas 1"
-  only:
-    - master
