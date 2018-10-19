@@ -3,7 +3,6 @@ image: docker:dind
 stages:
 - build
 - release
-- deploy
 
 variables:
   CONTAINER_REPO: vfricou/jirafeau
