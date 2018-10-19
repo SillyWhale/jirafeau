@@ -1,7 +1,7 @@
-FROM alpine:3.7
-LABEL maintainer="Vincent FRICOU <vincent@fricouv.eu>"
+FROM alpine:3.8
+LABEL maintainer="SillyWhale <contact@sillywhale.wtf"
 
-ENV JF_VERSION=3.4.1 \
+ENV JF_VERSION=3.4.0 \
     JF_URL=https://gitlab.com/mojo42/Jirafeau \
     JF_ROOT_DIR=/Jirafeau \
     JF_DATA_DIR=/jirafeau-data
