@@ -11,7 +11,7 @@ COPY includes/ /includes.d
 RUN \
   apk update && apk upgrade && \
   apk add --no-cache nginx supervisor git && \
-  apk add --no-cache php7-fpm php7-session php7-json php7-mcrypt php7-xdebug && \
+  apk add --no-cache php7-fpm php7-session php7-json php7-mcrypt php7-xdebug php7-cli && \
   rm /etc/nginx/conf.d/default.conf && \
   rm /etc/php7/php-fpm.d/www.conf && \
   mkdir /run/nginx/ && \
